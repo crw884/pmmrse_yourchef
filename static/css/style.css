@@ -82,6 +82,9 @@ body::before{
             border-radius: 0 100px 100px 0;
             padding-top: 5px;
             padding-right: 20px;
+            img{
+                height: 28px;
+            }
         }
     }
 
