@@ -105,6 +105,17 @@ body::before{
         padding: 12px 47px;
         color: black;
     }
+
+    .base_logout-button{
+        font-weight: bold;
+        font-size: 19px;
+        background-color: var(--color-primary);
+        border-radius: 32px;
+        padding: 12px 47px;
+        color: black;
+        border: none;
+        cursor: pointer;
+    }
 }
 
 .about{

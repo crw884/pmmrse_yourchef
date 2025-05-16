@@ -34,3 +34,8 @@ def signup_view(request):
     else:
         form = forms.SignUpForm()
     return render(request, 'accounts/signup.html', {'form': form})
+
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+    return redirect('homepage')
