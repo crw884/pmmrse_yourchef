@@ -1,0 +1,9 @@
+{% extends 'base_layout.html' %}
+{% block title %} Домашняя страница ЧТО {% endblock title %}
+{% block content %}
+    <a href="{% url 'accounts:login' %}"> Login</a>
+    <p></p>
+    <a href="{% url 'accounts:signup' %}">Signup</a>
+    <a href="{% url 'about' %}">О нас</a>
+{% endblock content %}
+

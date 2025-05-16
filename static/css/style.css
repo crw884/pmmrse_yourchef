@@ -1,0 +1,95 @@
+@import url("variables.css");
+
+*, :before, :after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: Inter;
+
+    /*  */
+    a{
+        text-decoration: none;
+
+    }
+}
+
+body::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.48;
+    z-index: -1;
+    background-image: url("../img/background.png");
+    background-repeat: repeat;
+    background-size: 500px;
+}
+
+.base_header{
+    background-color: var(--color-secondary);
+    height: 150px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 92px 0 92px;
+
+    box-shadow: black 1px 0 25px 0;
+    .base_logo{
+        height: 125px;
+    }
+
+    .base_search-container{
+        width: 752px;
+        height: 50px;
+        display: flex;
+
+        border-radius: 32px;
+        border: solid 1px rgb(175, 175, 175);
+        .base_search{
+            flex-grow: 1;
+            padding: 10px 30px 8px 25px;
+            border: none;
+            outline: none;
+            border-radius: 32px 0 0 32px;
+            font-weight: lighter;
+            font-size: 18px;
+        }
+
+        .base_search-button{
+            cursor: pointer;
+            border: none;
+            background-color: rgb(255,255,255,1);
+            border-radius: 0 100px 100px 0;
+            padding-top: 5px;
+            padding-right: 20px;
+        }
+    }
+
+    .base_addrecipe-button{
+        font-weight: bold;
+        font-size: 19px;
+        border: solid var(--color-primary-700) 3px;
+        border-radius: 32px;
+        padding: 10px 47px;
+        color: var(--color-primary-700);
+    }
+
+    .base_login-button{
+        font-weight: bold;
+        font-size: 19px;
+        background-color: var(--color-primary);
+        border-radius: 32px;
+        padding: 12px 47px;
+        color: black;
+    }
+}
+

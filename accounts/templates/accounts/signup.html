@@ -1,0 +1,26 @@
+{% extends 'accounts/accounts_layout.html' %}
+{% block title %} Log in {% endblock title %}
+{% block content %}
+    <div class="signup-body">
+        <div class="signup_body-header">
+            <div class="signup_body-up">
+                <div>Регистрация</div>
+                <a href="{% url 'accounts:login' %}">Вход</a>
+            </div>
+            <hr>
+        </div>
+
+        <!-- FORM-->
+        <form class="form" action="{% url 'accounts:signup' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Регистрация</button>
+        </form>
+
+        <!-- Фиктивный прикол какой то ну ладно-->
+        <div class="signup_body-check">
+            <input type="checkbox">
+            Я прочитал <a href="" class="radio-link">правила</a> и согласен на <a href="" class="radio-link">обработку ПД</a>
+        </div>
+    </div>
+{% endblock content %}
