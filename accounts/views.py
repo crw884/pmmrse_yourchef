@@ -1,4 +1,5 @@
 from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 from django.shortcuts import render, redirect
@@ -39,3 +40,9 @@ def logout_view(request):
     if request.method == 'POST':
         logout(request)
     return redirect('homepage')
+
+@login_required
+def profile_view(request):
+    if request.method == 'POST':
+        logout(request)
+    return render(request, 'accounts/profile.html')

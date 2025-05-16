@@ -1,18 +1,22 @@
 {% extends 'accounts/accounts_layout.html' %}
 {% block title %} Log in {% endblock title %}
 {% block content %}
+    <div class="login-container">
     <div class="login-body">
         <div class="login_body-up">
             <div>Вход</div>
             <a href="{% url 'accounts:signup' %}">Регистрация</a>
         </div>
         <hr>
-    <!-- FORM-->
+
         <form class="form" action="{% url 'accounts:login' %}" method="post">
             {% csrf_token %}
             {{ form }}
             <button type="submit">Вход</button>
         <form/>
-        <!--<a href="{% url 'homepage' %}">Забыли пароль?</a>-->
+
     </div>
+    <a href="{% url 'homepage' %}" class="linktohome">Вернуться на главную.</a>
+    </div>
+
 {% endblock content %}

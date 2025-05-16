@@ -19,10 +19,15 @@
         </form>
         <a href="" class="base_addrecipe-button">Добавить рецепт</a>
         {% if user.is_authenticated %}
-            <form class="form" action="{% url 'accounts:logout' %}" method="post">
-                {% csrf_token %}
-                <button class="base_logout-button" type="submit">Выйти</button>
-            </form>
+            <div class="base_profilecard">
+                <div class="base_profilecard-container">
+                     <p class="base_profilecard-name">
+                         {{ user.username }}
+                     </p>
+                     <a href="{% url 'accounts:profile' %}" class="base_profilecard-btn">Открыть профиль</a>
+                </div>
+                <img src="{% static '/img/default.png' %}" alt="0_0">
+            </div>
         {% else %}
             <a href="{% url 'accounts:login' %}" class="base_login-button">Войти</a>
         {% endif %}

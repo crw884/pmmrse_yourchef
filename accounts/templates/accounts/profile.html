@@ -1,8 +1,32 @@
 {% extends 'base_layout.html' %}
+{% load static %}
 {% block title %} Профиль {% endblock title %}
 {% block content %}
     <div class="profile">
-
+        <div class="profile_upcontent">
+            <img src="{% static 'img/default.png' %}" alt="">
+            <div class="profile_info">
+                <p class="profile_info-name">
+                    {{ user.username }}
+                </p>
+                <p class="profile_info-desc">
+                    Шакира базарная форма на обратном лизуне с гироскопической шнуровкой воротника
+                </p>
+            </div>
+             <!-- if user == profile.user ...-->
+            <form class="form" action="{% url 'accounts:logout' %}" method="post">
+                {% csrf_token %}
+                <button class="base_logout-button" type="submit">Выйти</button>
+            </form>
+        </div>
+        <div class="profile_buttons">
+            <p>рецепты</p>
+            <p>оцененное</p>
+        </div>
+        <hr>
+        <div class="recipe_card">
+            CARD
+        </div>
     </div>
 {% endblock content %}
 
