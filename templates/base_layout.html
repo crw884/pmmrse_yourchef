@@ -21,7 +21,13 @@
 
         <a href="{% url 'accounts:login' %}" class="base_login-button">Войти</a>
     </header>
-    {% block content %}{% endblock content %}
+
+    <main>
+    {% block content %}
+
+    {% endblock content %}
+    </main>
+
     <footer class="base_footer">
         <p>crw884. ALL RIGHTS VIOLATED.</p>
     </footer>

@@ -6,14 +6,23 @@
     padding: 0;
 }
 
+html{
+    height: 100%;
+}
+
 body{
     font-family: Inter;
-
+    position: relative;
+    min-height: 100%;
     /*  */
     a{
         text-decoration: none;
 
     }
+}
+
+main{
+    padding-bottom: var(--size-footer-height);
 }
 
 body::before{
@@ -34,6 +43,8 @@ body::before{
     background-color: var(--color-secondary);
     height: 150px;
     width: 100%;
+
+    margin-bottom: 50px;
 
     display: flex;
     flex-direction: row;
@@ -91,5 +102,37 @@ body::before{
         padding: 12px 47px;
         color: black;
     }
+}
+
+.about{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 40px 80px;
+    max-width: 90%;
+    border-radius: 50px;
+    background-color: white;
+    gap: 15px;
+    min-height: 50vh;
+    h1, h2{
+        display: flex;
+        justify-content: center;
+    }
+    .about-maininfo{
+        font-size: 24px;
+    }
+}
+
+.base_footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--size-footer-height);
+
+    background-color: var(--color-primary);
+
+    position: absolute;
+    width: 100%;
+    bottom: 0;
 }
 
