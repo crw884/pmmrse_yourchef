@@ -210,3 +210,17 @@ body::before{
         }
     }
 }
+
+/* СТИЛИ ДЛЯ ПРИЛОЖЕНИЯ РЕЦЕПТОВ */
+
+.recipe{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 40px 80px;
+    max-width: 90%;
+    border-radius: 50px;
+    background-color: white;
+    gap: 15px;
+    min-height: 50vh;
+}
