@@ -17,7 +17,7 @@
             </div>
 
         </form>
-        <a href="" class="base_addrecipe-button">Добавить рецепт</a>
+        <a href="{% url 'recipes:addrecipe' %}" class="base_addrecipe-button">Добавить рецепт</a>
         {% if user.is_authenticated %}
             <div class="base_profilecard">
                 <div class="base_profilecard-container">
@@ -26,7 +26,12 @@
                      </p>
                      <a href="{% url 'accounts:profile' %}" class="base_profilecard-btn">Открыть профиль</a>
                 </div>
+                {% if user.profile_image %}
+                <img src="{{ user.profile_image.url}}" alt="0_0">
+                {% else %}
                 <img src="{% static '/img/default.png' %}" alt="0_0">
+                {% endif %}
+
             </div>
         {% else %}
             <a href="{% url 'accounts:login' %}" class="base_login-button">Войти</a>

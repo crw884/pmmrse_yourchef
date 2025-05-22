@@ -4,37 +4,48 @@
     <div class="recipe">
         <div class="recipe_head">
             <span class="recipe_head-name">
-                
+                {{ recipe.title }}
             </span>
             <span class="recipe_head-author">
-
+                Автор: {{ recipe.user }}
             </span>
             <span class="recipe_head-date">
-
+                Дата: {{ recipe.created_at | date:"d.m.Y" }}
             </span>
         </div>
         <div class="recipe_info">
-            <img src="" alt="">
+            <img src="{{ recipe.image.url }}" alt="">
             <div class="recipe_info-right">
-                <p>
-
+                <p class="recipe_info-description">
+                    {{ recipe.description }}
                 </p>
-                <p>
-
-                </p>
-                <!-- Тут генерация списка тегов будет -->
-                <p></p>
+                {% for element in tags %}
+                    <a href="">
+                        #{{ element.tag }}
+                    </a>
+                {% endfor %}
             </div>
         </div>
-        <div class="recipe_ingridients">
-            <p>Ингредиенты</p>
+        <div class="recipe_ingredients">
+            <p>ИНГРИДИЕНТЫ</p>
             <ul>
-                <li>0_o</li>
+                {% for element in ingredients %}
+                    <li>
+                        {{ element.ingredient }}: {{ element.description }}
+                    </li>
+                {% endfor %}
             </ul>
         </div>
         <div class="recipe_main">
-            <p>Рецепт </p>
-            <!-- Тут весь рецепт -->
+            <p> Рецепт </p>
+            {% for step in steps %}
+                <p> {{ step.step_number }} шаг</p>
+                {{ step.description }}
+                {% if step.image %}
+                    <p></p>
+                    <img src="{{ step.image.url }}" alt="">
+                {% endif %}
+            {% endfor %}
         </div>
         <div class="recipe_rate">
             <span>Оценки</span>

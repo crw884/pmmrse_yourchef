@@ -1,0 +1,47 @@
+{% extends 'base_layout.html' %}
+{% load static %}
+{% block title %} Добавить рецепт {% endblock title %}
+{% block content %}
+    <script src="{% static 'scripts/previewphoto.js' %}"></script>
+
+    <div class="addrecipe_h">
+        <h1>Добавьте рецепт</h1>
+        <h2>Пора миру узнать что значит вкусно!</h2>
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+
+    <div class="addrecipe">
+        <div class="addrecipe_info">
+            <label for="id_image">
+                {{ formRecipe.image }}
+                <div class="addrecipe_info_img-wrapper">
+                    <img id="preview" src="{% static 'img/blank.png' %}" alt="" class="addrecipe_info-img">
+                    <img src="{% static 'img/icon-addimage.svg' %}" alt="" class="addrecipe_info_img-add">
+                </div>
+            </label>
+
+            <div class="addrecipe_info-form">
+                {{ formRecipe.title }}
+                {{ formRecipe.description }}
+            </div>
+            {{ formRecipe.prep_time }}
+        </div>
+        <p>Теги: </p>
+        <button type="button" id="id_addtag-btn">Добавить тег...</button>
+
+        <p>Ингридиенты</p>
+        <button type="button" id="id_addigridient-btn">Добавить ингридиент...</button>
+        <hr>
+        <div class="addrecipe_addstep-buttons">
+            <button type="button" id="id_addstep_photo">Добавить шаг... <img src="" alt=""></button>
+            <button type="button" id="id_addstep_text">Добавить шаг... <img src="" alt=""></button>
+        </div>
+
+        <button class="addrecipe_form-button" type="submit">Опубликовать</button>
+    </div>
+
+
+    </form>
+{% endblock content %}
+

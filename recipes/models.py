@@ -17,12 +17,13 @@ class Recipe(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipes')
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='recipe_images', blank=True, null=True)
+    image = models.ImageField(upload_to='static/img', blank=True, null=True)
     prep_time = models.PositiveIntegerField(help_text="Время готовки в минутах",default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag, through='RecipeTag')
     #updated_at = models.DateTimeField(auto_now=True) #????
     ingredients = models.ManyToManyField(Ingredient, through='RecipeIngredient')
+    slug = models.SlugField(max_length=100, unique=True)
 
     average_rating = models.FloatField(default=0, editable=False)
     rating_count = models.PositiveIntegerField(default=0, editable=False)
@@ -41,7 +42,7 @@ class Step(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='steps')
     step_number = models.PositiveIntegerField()
     description = models.TextField()
-    image = models.ImageField(upload_to='step_images', blank=True, null=True)
+    image = models.ImageField(upload_to='static/img', blank=True, null=True)
     class Meta:
         ordering = ['step_number']
         unique_together = ('recipe', 'step_number')

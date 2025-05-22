@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
-    profile_image = models.ImageField(upload_to="profile_image", null=True, blank=True)
+    profile_image = models.ImageField(upload_to="static/img", null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     groups = models.ManyToManyField(
         'auth.Group',

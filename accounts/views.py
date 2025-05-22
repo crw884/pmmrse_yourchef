@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 from django.shortcuts import render, redirect
 from accounts import forms
+from accounts.models import User
 
 # Create your views here.
 
@@ -43,6 +44,16 @@ def logout_view(request):
 
 @login_required
 def profile_view(request):
+    profile = User.objects.get(username=request.user)
     if request.method == 'POST':
         logout(request)
-    return render(request, 'accounts/profile.html')
+
+    return render(request, 'accounts/profile.html', {'profile': profile})
+
+@login_required
+def change_photo_view(request):
+    if request.method == 'POST':
+        user = request.user
+        user.profile_image = request.FILES['profile_new_image']
+        user.save()
+        return redirect('accounts:profile')
