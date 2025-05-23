@@ -10,9 +10,10 @@
     <header class="base_header">
         <a href="{% url 'homepage' %}"><img src="{% static '/img/Logo.svg' %}" alt="Your-chef" class="base_logo"></a>
 
-        <form action="">
+        <form action="{% url 'recipes:search' %}" method="post">
             <div class="base_search-container">
-                <input type="text" placeholder="Введите название блюда или ингридиент..." name="search" class="base_search">
+                {% csrf_token %}
+                <input type="text" placeholder="Введите название блюда или ингредиент..." name="search" class="base_search">
                 <button type="submit" class="base_search-button"><img src="{% static 'img/icon-search.svg' %}" alt="POISK"></button>
             </div>
 

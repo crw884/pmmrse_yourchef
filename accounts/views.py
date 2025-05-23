@@ -50,10 +50,18 @@ def profile_view(request):
 
     return render(request, 'accounts/profile.html', {'profile': profile})
 
-@login_required
+@login_required(login_url='accounts:login')
 def change_photo_view(request):
     if request.method == 'POST':
         user = request.user
         user.profile_image = request.FILES['profile_new_image']
+        user.save()
+        return redirect('accounts:profile')
+
+@login_required(login_url='accounts:login')
+def change_description_view(request):
+    if request.method == 'POST':
+        user = request.user
+        user.description = request.POST['description']
         user.save()
         return redirect('accounts:profile')

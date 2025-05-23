@@ -1,4 +1,6 @@
 {% extends 'base_layout.html' %}
+{% load static %}
+{% load mytags %}
 {% block title %} рецепт {% endblock title %}
 {% block content %}
     <div class="recipe">
@@ -19,11 +21,13 @@
                 <p class="recipe_info-description">
                     {{ recipe.description }}
                 </p>
+                <p>
                 {% for element in tags %}
                     <a href="">
                         #{{ element.tag }}
                     </a>
                 {% endfor %}
+                </p>
             </div>
         </div>
         <div class="recipe_ingredients">
@@ -37,33 +41,70 @@
             </ul>
         </div>
         <div class="recipe_main">
-            <p> Рецепт </p>
+            <p class="recipe_main_h"> Рецепт </p>
             {% for step in steps %}
-                <p> {{ step.step_number }} шаг</p>
-                {{ step.description }}
+                <p class="recipe_main_step-desc">{{ step.step_number }}. {{ step.description }}</p>
+
                 {% if step.image %}
-                    <p></p>
-                    <img src="{{ step.image.url }}" alt="">
+                    <img class="recipe_main_step-image" src="{{ step.image.url }}" alt="">
                 {% endif %}
+
             {% endfor %}
         </div>
         <div class="recipe_rate">
-            <span>Оценки</span>
-            <div class="recipe_rate-fivestars"></div>
+            <span>Оцените рецепт</span>
+            <div class="rate-container">
+                <div style="background: linear-gradient(90deg,rgba(250, 128, 5, 1) {{rating}}%, rgba(209, 209, 209, 1) 0%);" class="rate-color">
+                    &nbsp;
+                </div>
+            </div>
         </div>
         <div class="recipe_comments">
-            <form action="">
+            {% if user.is_authenticated %}
+                <form class="comment_form" method="post" action="{% url 'recipes:addcomment' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="recipe" value="{{ recipe.slug }}">
+                    <textarea name="comment" id="id_addcomment" cols="30" rows="10" maxlength="200"></textarea>
+                    <div class="comment_form-wrapper">
+                        <div class="rate-color">
+                            <input name="rating" id="fst-1" value="1" type="radio" required />
+                            <input name="rating" id="fst-2" value="2" type="radio" required />
+                            <input name="rating" id="fst-3" value="3" type="radio" required />
+                            <input name="rating" id="fst-4" value="4" type="radio" required />
+                            <input name="rating" id="fst-5" value="5" type="radio" required />
+                        </div>
+                       <button type="submit">Отправить</button>
+                    </div>
 
-            </form>
-
+                </form>
+            {% endif %}
             <div class="recipe_comments-commentsection">
                 <ul>
-                    <li>
-                        Comment
-                    </li>
+                    {% for c in comments %}
+                        <li>
+                            {% if c.user.profile_image %}
+                            	<img src="{{ c.user.profile_image.url }}" alt="">
+                            {% else %}
+                                <img src="{% static 'img/default.png' %}" alt="">
+                            {% endif %}
+                            <div class="comment_wrapper">
+                                <div class="comment_info">
+                                    <p>{{ c.user.username }}</p>
+                                    <div class="rate-color" style="background: linear-gradient(90deg,rgba(250, 128, 5, 1) {{c.rating|of5:5}}%, rgba(209, 209, 209, 1) 0%);" >
+                                        &nbsp;
+                                    </div>
+
+                                </div>
+                                {% if c.comment %}
+                                    <span>{{ c.comment }}</span>
+                                {% else %}
+                                    <span class="blank-comment">Пользователь не оставил комментарий...</span>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
-            <!-- Тут короче комменты -->
         </div>
     </div>
 {% endblock content %}

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     'accounts',
     'recipes',
+
 ]
 
 MIDDLEWARE = [
@@ -68,7 +69,11 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            "libraries": {
+                'mytags': 'yourchef.templatetags.mytags',
+            }
         },
+
     },
 ]
 

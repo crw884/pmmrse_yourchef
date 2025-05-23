@@ -25,15 +25,22 @@ class Recipe(models.Model):
     ingredients = models.ManyToManyField(Ingredient, through='RecipeIngredient')
     slug = models.SlugField(max_length=100, unique=True)
 
-    average_rating = models.FloatField(default=0, editable=False)
-    rating_count = models.PositiveIntegerField(default=0, editable=False)
+    rating = models.PositiveIntegerField(default=0, editable=True)
+    rating_count = models.PositiveIntegerField(default=0, editable=True)
 
-    def update_rating(self):
-        ratings = self.ratings.all()
-        self.rating_count = ratings.count()
-        self.average_rating = sum(ratings) / float(self.rating_count) if self.rating_count else 0
-        self.save(update_fields=['average_rating', 'rating_count'])
+    def update_rating(self, newrating, up):
+        if up:
+            self.rating_count += 1
+            self.rating += newrating
+        else:
+            self.rating_count -= 1
+            self.rating -= newrating
+        self.save(update_fields=['rating', 'rating_count'])
 
+    def get_rating(self):
+        if self.rating_count == 0:
+            return 0
+        return  self.rating / self.rating_count
 
     def __str__(self):
         return self.title
@@ -75,7 +82,7 @@ class RecipeRating(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='ratings')
     rating = models.PositiveIntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)],
-        help_text="Рейтинг от 0 до 5"
+        help_text="Рейтинг от 1 до 5"
     )
     comment = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -85,11 +92,11 @@ class RecipeRating(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        self.recipe.update_rating()
+        self.recipe.update_rating(newrating = self.rating, up=True)
 
     def delete(self, *args, **kwargs):
         super().delete(*args, **kwargs)
-        self.recipe.update_rating()
+        self.recipe.update_rating(newrating=self.rating, up=False)
 
     def __str__(self):
         return f"{self.rating}/5 от {self.user.username} для {self.recipe.title}"

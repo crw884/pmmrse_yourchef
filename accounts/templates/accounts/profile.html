@@ -3,6 +3,7 @@
 {% block title %} Профиль {% endblock title %}
 {% block content %}
     <script src="{% static 'scripts/previewphoto.js' %}"></script>
+    <script src="{% static 'scripts/inputchange.js' %}"></script>
     <div class="profile">
         <div class="profile_upcontent">
 
@@ -24,22 +25,32 @@
                         {{ user.username }}
                     </p>
                     <p class="profile_info-desc">
-                        {% if user.description != None%}
-                            {{  user.description }}
-                        {% else %}
-                            Нет описания...
-                        {% endif %}
+                    {% if user.description != None %}
+                        <input id="id_changedesc" value="{{ user.description }}" type="text" class="profile_newdesc-input" form="id_change_desc-form" name="description">
+                    {% else %}
+                        <input id="id_changedesc" value="Нет описания..." type="text" class="profile_newdesc-input" form="id_change_desc-form" name="description">
+                    {% endif %}
                     </p>
+
                 </div>
             </div>
-            <form enctype="multipart/form-data" id="id_change_photo-form" action="{% url 'accounts:changephoto' %}" method="post">
-                {% csrf_token %}
-                <button id="id_changephoto-btn" class="base_changephoto-button" type="submit">Сменить фото</button>
-            </form>
-            <form class="form" action="{% url 'accounts:logout' %}" method="post">
-                {% csrf_token %}
-                <button class="base_logout-button" type="submit">Выйти</button>
-            </form>
+
+            <div class="profile-buttons">
+                <form class="form" action="{% url 'accounts:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="base_logout-button" type="submit">Выйти</button>
+                </form>
+                <form enctype="multipart/form-data" id="id_change_photo-form" action="{% url 'accounts:changephoto' %}" method="post">
+                    {% csrf_token %}
+                    <button id="id_changephoto-btn" class="base_changephoto-button" type="submit">Сменить фото</button>
+                </form>
+                <form id="id_change_desc-form" autocomplete="off" action="{% url 'accounts:changedescription' %}" method="post">
+                    {% csrf_token %}
+                    <button id="id_changedesc-btn" class="base_changedesc-button" type="submit">Поменять описание</button>
+                </form>
+            </div>
+
+
         </div>
 
     </div>

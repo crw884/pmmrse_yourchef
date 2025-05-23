@@ -1,0 +1,12 @@
+{% extends 'base_layout.html' %}
+{% load static %}
+{% load mytags %}
+{% block title %} поиск {% endblock title %}
+{% block content %}
+    <div class="search">
+        {% for recipe in recipes %}
+            <a href="{{ recipe.slug }}">ССЫЛКА</a>
+        {% endfor %}
+    </div>
+{% endblock content %}
+
