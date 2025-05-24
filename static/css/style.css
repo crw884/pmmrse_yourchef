@@ -618,7 +618,9 @@ body::before{
 
     }
     .addrecipe_tagsandingr{
-
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
         span{
             font-size: 22px;
         }
@@ -643,6 +645,157 @@ body::before{
         .recipe_info-ingredients{
 
         }
+        .block_ingredients{
+            .block_ingredients_container{
+                display: flex;
+                gap: 20px;
+                align-items: center;
+            }
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            input{
+                background-color: var(--color-neutral);
+                border: none;
+                height: 64px;
+                width: auto;
+                padding: 18px 30px;
+                font-size: 20px;
+                border-radius: 50px;
+            }
+        }
+        .block_ingredients_delbtn{
+            height: 44px;
+            background-color: var(--color-primary-700);
+            border-radius: 50px;
+            border: solid 1px black;
+            font-size: 18px;
+            padding: 10px 30px;
+            cursor: pointer;
+            &:hover{
+                opacity: 0.8;
+            }
+        }
+    }
+    /**/
+    .add-btn{
+        background-color: var(--color-neutral);
+        color: #000;
+        font-size: 20px;
+        font-weight: bold;
+        max-width: 300px;
+        padding: 15px 30px;
+        border: solid 1px black;
+        border-radius: 35px;
+        cursor: pointer;
+
+        transition: 0.3s ease-in-out;
+        &:hover{
+            background-color: var(--color-neutral-500);
+        }
+        &:active{
+            box-shadow:  1px 1px 10px black;
+        }
+    }
+
+    .addrecipe_steps{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        .block_steps{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .step_card-text{
+            background-color: var(--color-neutral);
+            border-radius: 60px;
+            width: 100%;
+            padding: 30px 32px 20px 32px;
+            p{
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+            textarea{
+                width: 100%;
+                min-height: 200px;
+                background-color: var(--color-neutral);
+                border: none;
+                font-size: 22px;
+                resize: vertical;
+                overflow: hidden;
+            }
+        }
+
+        .step_card-img{
+            background-color: var(--color-neutral);
+            border-radius: 60px;
+            width: 100%;
+            display: flex;
+            .step_card-info{
+                width: 70%;
+
+            }
+            p{
+                font-size: 18px;
+                margin: 30px 32px 10px;
+            }
+            textarea{
+                width: calc(100% - 64px);
+                min-height: 100px;
+                height: calc(100% - 90px);
+                max-height: 100%;
+                background-color: var(--color-neutral);
+                border: none;
+                font-size: 22px;
+                resize: vertical;
+                overflow: hidden;
+                margin: 0 32px 10px;
+            }
+
+            label{
+                background-image: url("../img/blank.png");
+                background-size: cover;
+                background-repeat: repeat;
+                width: 30%;
+                aspect-ratio: 1/1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                border-radius: 0 30px 30px 0;
+                input{
+                    display: none;
+                }
+                transition: 0.3s;
+                img{
+                    width: 64px;
+                    display: none;
+                    transition: 0.3s;
+                }
+                &:hover{
+                    transition: 0.3s;
+                    img{
+                        display: block;
+                    }
+                }
+            }
+
+        }
+        .buttons{
+            display: flex;
+            gap:20px;
+            .add-btn{
+                align-items: center;
+                display: flex;
+                gap: 10px;
+            }
+            img{
+                height: 30px;
+            }
+        }
+
+
     }
 }
 

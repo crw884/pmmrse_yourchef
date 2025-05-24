@@ -3,7 +3,7 @@
 {% block title %} Добавить рецепт {% endblock title %}
 {% block content %}
     <script src="{% static 'scripts/previewphoto.js' %}"></script>
-
+    <script src="{% static 'scripts/addfield.js' %}"></script>
     <div class="addrecipe_h">
         <h1>Добавьте рецепт</h1>
         <h2>Пора миру узнать что значит вкусно!</h2>
@@ -36,26 +36,23 @@
                 </label>
             </div>
             <div class="recipe_info-ingredients">
-                <button >Добавить ингедиент</button>
+                <button class="add-btn" id="id_addbtn-newingr" type="button">Добавить ингедиент</button>
+            </div>
+            <div id="id_block-w-ingr" class="block_ingredients">
+
             </div>
         </div>
         <div class="addrecipe_steps">
             <div class="buttons">
-                <button id="id_addbtn-step-text">Добавить шаг...</button>
-                <button id="id_addbtn-step-text">Добавить шаг...</button>
+                <button class="add-btn" id="id_addbtn-step-text" type="button">Добавить шаг <img src="{% static 'img/icon_text.svg' %}" alt=""></button>
+                <button class="add-btn" id="id_addbtn-step-img" type="button">Добавить шаг <img src="{% static 'img/icon_photo.svg' %}" alt=""></button>
             </div>
-            <div id="id_block-w-steps">
+            <div id="id_block-w-steps" class="block_steps">
 
             </div>
         </div>
         <button class="addrecipe_form-button" type="submit">Опубликовать</button>
     </div>
-
-    {% if formRecipe.is_valid %}
-        <div>
-            Рецепт сохранен.....................
-        </div>
-    {% endif %}
     </form>
 {% endblock content %}
 
