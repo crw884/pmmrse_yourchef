@@ -1,15 +1,14 @@
-
-
 document.addEventListener("DOMContentLoaded", function (){
     let div = document.getElementById("id_block-w-ingr");
+    let numd = 1;
     document.getElementById("id_addbtn-newingr").addEventListener("click", () => {
         let newInput = document.createElement("input");
         newInput.placeholder = "Название";
-        newInput.name = "ingr";
+        newInput.name = "ingr" + numd;
         newInput.type = "text";
         let newInputD = document.createElement("input");
         newInputD.placeholder = "Описание";
-        newInputD.name = "ingrDesc";
+        newInputD.name = "ingrDesc" + numd;
         newInputD.type = "text";
         let newContainer = document.createElement("div");
         newContainer.className = "block_ingredients_container";
@@ -22,9 +21,10 @@ document.addEventListener("DOMContentLoaded", function (){
         newContainer.appendChild(newInput);
         newContainer.appendChild(newInputD);
         newContainer.appendChild(deleteBtn);
-
+        numd++;
         deleteBtn.onclick = function (e ){
             this.parentNode.parentNode.removeChild(this.parentNode);
+            numd--;
         }
 
     });
@@ -41,9 +41,9 @@ document.addEventListener("DOMContentLoaded", function (){
         stepcounter.innerHTML = "Шаг "+ ++i;
 
         let inputField = document.createElement("textarea");
-        inputField.name = "description";
+        inputField.name = "descriptionStep" + i;
         inputField.className = "step_card-description";
-
+        inputField.required = true;
         newContainerT.appendChild(stepcounter);
         newContainerT.appendChild(inputField);
 
@@ -61,30 +61,29 @@ document.addEventListener("DOMContentLoaded", function (){
         stepcounter.innerHTML = "Шаг "+ ++i;
 
         let inputField = document.createElement("textarea");
-        inputField.name = "description";
+        inputField.name = "descriptionStep" + i;
         inputField.className = "step_card-description";
+        inputField.required = true;
         let label = document.createElement("label");
-        let inputFile = document.createElement("input");
+        let inputFileI = document.createElement("input");
+        inputFileI.name = "cardimage" + i;
         let img = document.createElement("img");
         img.src = "/static/img/icon-addimage.svg";
-        inputFile.type = "file";
-        label.appendChild(inputFile);
+        inputFileI.type = "file";
+        label.appendChild(inputFileI);
         label.appendChild(img);
-
-
 
         cont.appendChild(stepcounter);
         cont.appendChild(inputField);
         newContainerI.appendChild(cont);
         newContainerI.appendChild(label);
 
-        inputFile.addEventListener('change', function (e) {
+        inputFileI.addEventListener('change', function (e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function (event) {
-                    const preview = label;
-                    preview.style.backgroundImage = "url(" + event.target.result+")";
+                    label.style.backgroundImage = "url(" + event.target.result +")";
                 };
                 reader.readAsDataURL(file);
             }
