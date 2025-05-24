@@ -30,20 +30,8 @@ def recipe_view(request, slug):
                    'rating': rating,})
 
 
-def check_tags(tags):
-    bdtags = Tag.objects.all()
-    for(tag) in bdtags:
-        if(tag.name in tags):
-            tags.remove(tag.name)
-    return tags
-
-def check_ingredients(ingredients):
-    bdingredients = Ingredient.objects.all()
-    for(ingredient) in bdingredients:
-        if(ingredient.name in ingredients):
-            ingredients.remove(ingredient.name)
-    return ingredients
-
+# Существование этой функции противоречит законам логики, мироздания и божественным в том числе
+# зато работает
 
 @login_required
 def addrecipe_view(request):
@@ -53,44 +41,55 @@ def addrecipe_view(request):
         if formRecipe.is_valid():
             instance = formRecipe.save(commit=False)
             instance.user = request.user
-            #instance.save()
+            instance.save()
 
-            requestedTags = check_tags(set(request.POST['tags'].split()))
-            for tag in requestedTags:
-                Tag.objects.get_or_create(name=tag)
+            requestedTags = set(request.POST['tags'].split())
+            for t in requestedTags:
+                Tag.objects.get_or_create(name=t)
 
             for t in requestedTags:
-                RecipeTag.objects.get_or_create(name=t, recipe=instance)
+                RecipeTag.objects.get_or_create(tag=Tag.objects.get(name=t), recipe=instance)
 
             ingredients = []
             descriptions = []
             steps = []
+            images = []
+
+            counterimg = 0
+            stepwimg = []
 
             for key in request.POST:
-                if "ingr" in key:
+                if "ingrName" in key:
                     ingredients.append(request.POST[key])
                 if "ingrDesc" in key:
                     descriptions.append(request.POST[key])
                 if "descriptionStep" in key:
                     steps.append(request.POST[key])
+                    counterimg += 1
+                    for i in request.FILES:
+                        if key.replace("descriptionStep", "") == i.replace("cardimage", ""):
+                            images.append(request.FILES[i])
+                            stepwimg.append(counterimg)
 
-            ingredients = check_ingredients(ingredients)
             for ingredient in ingredients:
                 Ingredient.objects.get_or_create(name=ingredient)
 
+            count = 0
             for i in ingredients:
-                count = 0
                 desc = descriptions[count]
-                RecipeIngredient.objects.get_or_create(name=i, recipe=instance, description=desc)
+                RecipeIngredient.objects.get_or_create(ingredient=Ingredient.objects.get(name=i), recipe=instance, description=desc)
+
                 count+=1
 
-            images = []
-            for image in request.FILES:
-                images.append(image)
-
+            print(request.FILES)
+            count = 1
+            k = 0
             for step in steps:
-                count = 1
-                Step.objects.get_or_create(step_number=count, recipe=instance, description=step, image=images[count])
+                if count in stepwimg:
+                    Step.objects.get_or_create(step_number=count, recipe=instance, description=step, image=images[k])
+                    k+=1
+                else:
+                    Step.objects.get_or_create(step_number=count, recipe=instance, description=step)
                 count+=1
 
         return redirect("homepage")
@@ -128,3 +127,10 @@ def search_view(request):
                 data.append(recipe)
         return render(request, 'recipes/search.html', {'recipes': data})
 
+
+def deleterecipe_view(request, slug):
+    recipe = Recipe.objects.get(slug=slug)
+    if request.user == recipe.user:
+        recipe.delete()
+        return redirect('homepage')
+    return HttpResponse('401 unauthorized', status=401)

@@ -106,6 +106,9 @@
                 </ul>
             </div>
         </div>
+        {% if user == recipe.user %}
+            <a href="{% url 'recipes:delete' slug=recipe.slug %}">Удалить рецепт</a>
+        {% endif %}
     </div>
 {% endblock content %}
 

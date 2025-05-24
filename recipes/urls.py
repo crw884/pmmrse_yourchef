@@ -8,4 +8,5 @@ urlpatterns =[
     path('addcomment', views.addcomment_view, name='addcomment'),
     path('search', views.search_view, name='search'),
     path('<slug:slug>', views.recipe_view, name='recipe'),
+    path('delete/<slug:slug>', views.deleterecipe_view, name='delete'),
 ]

@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function (){
     document.getElementById("id_addbtn-newingr").addEventListener("click", () => {
         let newInput = document.createElement("input");
         newInput.placeholder = "Название";
-        newInput.name = "ingr" + numd;
+        newInput.name = "ingrName" + numd;
         newInput.type = "text";
         let newInputD = document.createElement("input");
         newInputD.placeholder = "Описание";
