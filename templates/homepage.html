@@ -1,10 +1,32 @@
 {% extends 'base_layout.html' %}
+{% load mytags %}
 {% block title %} Домашняя страница ЧТО {% endblock title %}
 {% block content %}
-    <a href="{% url 'accounts:login' %}"> Login</a>
-    <p></p>
-    <a href="{% url 'accounts:signup' %}">Signup</a>
-    <a href="{% url 'about' %}">О нас</a>
-    <a href="recipes/slugslug">Рецепт</a>
+    <div class="homepage">
+        {% for recipe in recipes %}
+            <div class="recipe_card">
+                <a href="{{ recipe.slug | namespace:"recipes"}}">
+                    <img src="{{ recipe.image.url }}" alt="">
+                </a>
+                <div class="recipe_card-base">
+                    <div class="recipe_card-main-info">
+                        <div class="recipe_card-first-row">
+                            <a href="{{ recipe.slug | namespace:"recipes" }}" class="">
+                                <p>{{ recipe.title }}</p>
+                            </a>
+                        </div>
+                        <div class="recipe_card-desc">
+                            <p>{{ recipe.description }}</p>
+                        </div>
+                    </div>
+                    <div class="recipe_card-last-row">
+                        <p>Автор: {{ recipe.user }}</p>
+                        <span> Дата: {{ recipe.created_at | date:"d.m.Y" }}</span>
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
 {% endblock content %}
 

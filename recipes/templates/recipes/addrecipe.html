@@ -10,7 +10,7 @@
     </div>
 
     <form method="post" enctype="multipart/form-data">
-
+    {% csrf_token %}
     <div class="addrecipe">
         <div class="addrecipe_info">
             <label for="id_image">
@@ -27,21 +27,35 @@
             </div>
 
         </div>
-        <p>Теги: </p>
-        <button class="add_button" type="button" id="id_addtag-btn">Добавить тег...</button>
-
-        <p>Ингридиенты</p>
-        <button class="add_button" type="button" id="id_addigridient-btn">Добавить ингридиент...</button>
-        <hr>
-        <div class="addrecipe_addstep-buttons">
-            <button class="add_button" type="button" id="id_addstep_photo">Добавить шаг... <img src="" alt=""></button>
-            <button class="add_button" type="button" id="id_addstep_text">Добавить шаг... <img src="" alt=""></button>
+        <div class="addrecipe_tagsandingr">
+            <span>Ингредиенты<br></span>
+            <div class="recipe_info-tags">
+                <label>
+                    <span>Теги<br></span>
+                    <input placeholder="Введите теги через пробел." name="tags" type="text">
+                </label>
+            </div>
+            <div class="recipe_info-ingredients">
+                <button >Добавить ингедиент</button>
+            </div>
         </div>
+        <div class="addrecipe_steps">
+            <div class="buttons">
+                <button id="id_addbtn-step-text">Добавить шаг...</button>
+                <button id="id_addbtn-step-text">Добавить шаг...</button>
+            </div>
+            <div id="id_block-w-steps">
 
+            </div>
+        </div>
         <button class="addrecipe_form-button" type="submit">Опубликовать</button>
     </div>
 
-
+    {% if formRecipe.is_valid %}
+        <div>
+            Рецепт сохранен.....................
+        </div>
+    {% endif %}
     </form>
 {% endblock content %}
 

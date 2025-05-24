@@ -7,9 +7,11 @@ from django.shortcuts import render, redirect
 
 from django.http import HttpResponse
 from django.shortcuts import render
+from recipes.models import Recipe
 
 def homepage(request):
-    return render(request, 'homepage.html')
+    recipes = Recipe.objects.all()[:3]
+    return render(request, 'homepage.html', {'recipes': recipes})
 
 def about(request):
     return render(request, 'about.html')

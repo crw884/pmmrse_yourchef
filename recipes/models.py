@@ -17,7 +17,7 @@ class Recipe(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipes')
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='static/img', blank=True, null=True)
+    image = models.ImageField(upload_to='static/img', default="static/img/default.png" , blank=True, null=True)
     prep_time = models.PositiveIntegerField(help_text="Время готовки в минутах",default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag, through='RecipeTag')

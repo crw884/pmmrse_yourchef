@@ -33,20 +33,18 @@ def recipe_view(request, slug):
 def addrecipe_view(request):
     if request.method == 'POST':
         formRecipe = forms.RecipeForm(request.POST, request.FILES)
-        formTags = forms.TagForm(request.POST)
 
         if formRecipe.is_valid():
-            formRecipe.save(commit=False)
-        if formTags.is_valid():
-            formTags.save(commit=False)
+            instance = formRecipe.save(commit=False)
+            instance.user = request.user
+            instance.save()
 
-        return redirect("homepage")
+        print("something happened")
+        #return redirect("homepage")
     else:
         formRecipe = forms.RecipeForm()
-        formTags = forms.TagForm()
     return render(request, 'recipes/addrecipe.html', {
         'formRecipe': formRecipe,
-        'formTags': formTags
     })
 
 def addcomment_view(request):

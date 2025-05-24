@@ -5,22 +5,28 @@
 {% block content %}
     <div class="search">
         {% for recipe in recipes %}
-            <div>
-                <img src="{{ recipe.image.url }}" alt="">
-                <div>
-                    <a href="{{ recipe.slug }}" class="">
-                        <p>{{ recipe.title }}</p>
-                    </a>
+            <div class="recipe_card">
+                <a href="{{ recipe.slug }}">
+                    <img src="{{ recipe.image.url }}" alt="">
+                </a>
 
-                    RATE 5 STARS
+                <div class="recipe_card-base">
+                    <div class="recipe_card-main-info">
+                        <div class="recipe_card-first-row">
+                            <a href="{{ recipe.slug }}" class="">
+                                <p>{{ recipe.title }}</p>
+                            </a>
+                        </div>
+                        <div class="recipe_card-desc">
+                            <p>{{ recipe.description }}</p>
+                        </div>
+                    </div>
+                    <div class="recipe_card-last-row">
+                        <p>Автор: {{ recipe.user }}</p>
+                        <span> Дата: {{ recipe.created_at | date:"d.m.Y" }}</span>
+                    </div>
                 </div>
-                <div>
-                    <p>{{ recipe.description }}</p>
-                </div>
-                <div>
-                    <p>Автор: {{ recipe.user }}</p>
-                    <span>{{ recipe.created_at }}</span>
-                </div>
+
             </div>
         {% endfor %}
     </div>
