@@ -6,3 +6,13 @@
 ***
 
 Ну неважно)
+
+![XNJ](./deployprikol/no.png)
+
+**нууууууууууууу**
+
+![POCHEMU](./deployprikol/yes.png)
+
+**~~--ЧТО--~~**
+
+![slizensss](./deployprikol/ЧТО.jpg)
